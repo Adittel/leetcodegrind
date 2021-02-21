@@ -1,0 +1,30 @@
+class Solution(object):
+    def floodFill(self, image, sr, sc, newColor):
+        """
+        :type image: List[List[int]]
+        :type sr: int
+        :type sc: int
+        :type newColor: int
+        :rtype: List[List[int]]
+        """
+        #use bfs to go from point to point
+        #this is same as number of islands
+        oldColor = image[sr][sc]
+        if (oldColor == newColor):
+            return image
+        bfs(image,sr,sc,newColor,oldColor)
+        return image
+def bfs(image,i,j,newColor,oldColor):
+    if i not in range(len(image)):
+        return
+    if j not in range(len(image[0])):
+        return
+    if image[i][j]!=oldColor :
+        return
+    if image[i][j]==oldColor :
+        image[i][j]=newColor
+        bfs(image,i+1,j,newColor,oldColor)
+        bfs(image,i-1,j,newColor,oldColor)
+        bfs(image,i,j+1,newColor,oldColor)
+        bfs(image,i,j-1,newColor,oldColor)
+    return
