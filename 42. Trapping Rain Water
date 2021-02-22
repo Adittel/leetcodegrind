@@ -1,0 +1,36 @@
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        #we can create 3 arrays
+        #one where its maxes from the right
+        #one of maxes from the left
+        #one with each building height
+        if(len(height)==0):
+            return 0
+        right=len(height)-1
+        left=0
+        rightarr=[height[right]]
+        leftarr=[height[left]]
+        left+=1
+        right-=1
+        while(right>=0):
+            
+            if(rightarr[len(rightarr)-1]<height[right]):
+                rightarr.append(height[right])
+            else:
+                rightarr.append(rightarr[len(rightarr)-1])
+            
+            if(leftarr[left-1]<height[left]):
+                leftarr.append(height[left])
+            else:
+                leftarr.append(leftarr[left-1])
+            right-=1
+            left+=1
+        rightarr=list(reversed(rightarr))
+        sum =0
+        for i in range(len(height)):
+            sum += (min(leftarr[i],rightarr[i])-height[i])
+        return sum
